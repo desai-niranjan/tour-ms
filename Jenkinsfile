@@ -1,5 +1,5 @@
 pipeline{
-	agent teamA-jenkinsslave
+	agent { label 'teamA-jenkinsslave' }
 
 	options{
 
