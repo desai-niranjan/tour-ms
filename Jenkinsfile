@@ -27,7 +27,7 @@ pipeline {
                 echo 'Code Compilation is Completed Successfully!'
             }
         }
-        /*stage('Sonarqube Code Quality') {
+        stage('Sonarqube Code Quality') {
             environment {
                 scannerHome = tool 'sonarqube-scanner'
             }
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-*/
+
         stage('Code Package') {
             steps {
                 echo 'Creating WAR Artifact'
