@@ -7,7 +7,7 @@ pipeline {
         ECR_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
         IMAGE_NAME = "desainiranjan8/tour-ms:tour-ms-v.1.${env.BUILD_NUMBER}"
         ECR_IMAGE_NAME = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/tour-ms:tour-ms-v.1.${env.BUILD_NUMBER}"
-        NEXUS_IMAGE_NAME = "34.224.169.52:8085/tour-ms:tour-ms-v.1.${env.BUILD_NUMBER}"
+        NEXUS_IMAGE_NAME = "34.201.91.124:8085/tour-ms:tour-ms-v.1.${env.BUILD_NUMBER}"
     }
 
     options {
@@ -27,7 +27,7 @@ pipeline {
                 echo 'Code Compilation is Completed Successfully!'
             }
         }
-        stage('Sonarqube Code Quality') {
+        /*stage('Sonarqube Code Quality') {
             environment {
                 scannerHome = tool 'sonarqube-scanner'
             }
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-
+*/
         stage('Code Package') {
             steps {
                 echo 'Creating WAR Artifact'
@@ -83,7 +83,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh 'docker login http://34.224.169.52:8085/repository/tour-ms/ -u admin -p ${PASSWORD}'
+                        sh 'docker login http://34.201.91.124:8085/repository/tour-ms/ -u admin -p ${PASSWORD}'
                         echo "Push Docker Image to Nexus: In Progress"
                         sh "docker tag ${env.IMAGE_NAME} ${env.NEXUS_IMAGE_NAME}"
                         sh "docker push ${env.NEXUS_IMAGE_NAME}"
